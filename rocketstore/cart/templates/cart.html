@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+	Rocket cart
+{% endblock %}
+
+{% block content %}
+
+	<div class="cartslist">
+		<div class="container">
+			<div class="cartslist__title">Ваша корзина {% if cart|length == 0 %}пуста{% endif %}</div>
+			<div class="cartslist__body">
+				<div class="cartslist__row">
+					{% for item in cart %}
+					{% with product=item.product %}
+					<div class="cartslist__column">
+						<div class="cartslist__item">
+							<div class="cartslist__img">
+								<img src="{{ item.product.image.url }}" alt="Нет фото">
+							</div>
+							<div class="cartslist__text">{{ item.product.description }}</div>
+							<div class="cartslist__counter">
+								<a href="{% url 'subtract_from_cart_url' id=item.product.id %}"
+								   class="counter__minus">-</a>
+								<div class="counter__cnt">{{ item.quantity }}</div>
+								<a href="{% url 'add_to_cart_url' id=item.product.id %}"
+								   class="counter__plus">+</a>
+							</div>
+							<div class="cartslist__finalprice">{{ item.total_price }} руб.</div>
+							<a href="{% url 'delete_from_cart_url' id=item.product.id %}"
+							   class="cartslist__delete">
+								<div class="delete__cross">X</div>
+								<div class="delete__text">Удалить</div>
+							</a>
+						</div>
+					</div>
+					{% endwith %}
+					{% endfor %}
+
+
+					<div class="cartslist__summ">Сумма {{ cart.get_total_price }} руб.</div>
+				</div>
+
+
+			</div>
+		</div>
+	</div>
+
+<form action="{% url 'make_order_url' %}" class="order" method="post">
+	{% csrf_token %}
+    <div class="container">
+        <div class="order__form" id="order__form">
+            <div class="order__title">Пожалуйста, представтесь</div>
+				<div class="order__input">
+
+					<label for="{{ form.name.if_for_label }}"></label>{{ form.name }}
+                	<div class="username__warning"></div>
+					<label for="{{ form.phone.if_for_label }}"></label>{{ form.phone }}
+					<div class="userphone__warning"></div>
+					<label for="{{ form.email.if_for_label }}"></label>{{ form.email }}
+					<div class="useremail__warning"></div>
+
+				<button tabindex="4" type="submit" class="order__btn" id="order__btn">Оформить заказ</button>
+
+
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<!--
+<script type="text/javascript" src={% static "js/order.js" %}></script>
+
+                <input tabindex="1" placeholder="Ваше имя" class="username" id="username" type="text">
+                <div class="username__warning"></div>
+                <input tabindex="2" placeholder="Телефон" class="userphone" id="userphone" type="tel">
+                <div class="userphone__warning"></div>
+                <input tabindex="3" placeholder="Email" class="useremail" id="useremail" type="email">
+                <div class="useremail__warning"></div>
+
+<form action="{% url 'make_order_url' %}" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="form-group">
+			{% if field.errors %}
+				<div class="alert alert-danger">
+					{{ field.errors }}
+				</div>
+			{% endif %}
+			{{ field.label }}
+			{{ field }}
+        </div>
+    {% endfor %}
+        <h1 class="mb-2"></h1>
+    <button type="submit" name="button" class="btn btn-primary">Оформить заказ</button>
+</form>
+
+
+-->
+{% endblock content %}
+
+
+

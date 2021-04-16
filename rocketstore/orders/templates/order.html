@@ -1,0 +1,24 @@
+{% extends 'cart/cart.html' %}
+{% load static %}
+
+{% block order %}
+<form action="http://www.google.com" target="blank" class="order" method="post" enctype="multipart/form-data">
+    <div class="container">
+        <div class="order__form" id="order__form">
+            <div class="order__title">Пожалуйста, представтесь</div>
+            <div class="order__input">
+                <input tabindex="1" placeholder="Ваше имя" class="username" id="username" type="text">
+                <div class="username__warning"></div>
+                <input tabindex="2" placeholder="Телефон" class="userphone" id="userphone" type="tel">
+                <div class="userphone__warning"></div>
+                <input tabindex="3" placeholder="Email" class="useremail" id="useremail" type="email">
+                <div class="useremail__warning"></div>
+                <div >
+                    <button tabindex="4" type="submit" class="order__btn" id="order__btn" disabled>Оформить заказ</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock order %}
