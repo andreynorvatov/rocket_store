@@ -23,14 +23,14 @@ class Cart:
         else:
             self.cart[product_id]['quantity'] += 1
         self.save()
-        print(f'PRINT add{self.cart[product_id]}')
+        # print(f'PRINT add{self.cart[product_id]}')
 
     def subtract(self, product, quantity=1):
         """Умешьшение количества товара на 1 ед."""
         product_id = str(product.id)
         self.cart[product_id]['quantity'] -= 1
         self.save()
-        print(f'PRINT subtract{self.cart[product_id]}')
+        # print(f'PRINT subtract{self.cart[product_id]}')
 
     def delete(self, product):
         """Удаление товаров из корзины"""
@@ -48,7 +48,7 @@ class Cart:
             self.cart[str(product.id)]['product'] = product
 
         for item in self.cart.values():
-            print(f'PRINt ITEM{item}')
+            # print(f'PRINt ITEM{item}')
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['quantity']
             yield item
@@ -56,7 +56,7 @@ class Cart:
     def __len__(self):
         """Подсчет всех товаров в корзине"""
         a = sum(item['quantity'] for item in self.cart.values())
-        print(f'PRINT len {a}')
+        # print(f'PRINT len {a}')
         return a
 
     def get_total_price(self):

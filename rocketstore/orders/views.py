@@ -31,9 +31,9 @@ class MakeOrderView(View):
     @transaction.atomic
     def post(self, request, *args, **kwargs):
         form = OrderCreateForm(request.POST)
-        print(f'FORM: {form}')
+        # print(f'FORM: {form}')
         cart = Cart(request)
-        print(f'Print post: {cart}')
+        # print(f'Print post: {cart}')
         if form.is_valid():
             order = form.save(commit=False)
             name = form.cleaned_data['name']
